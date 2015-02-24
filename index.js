@@ -16,7 +16,7 @@ var LazyInput = React.createClass({
     // for the most part, we are just going to pass through whatever comes in
     var props = Object.create(this.props);
     props.value = this.state.value;
-    props.onChange = this.onChange;
+    if(props.onChange) { props.onChange = this.onChange; }
     return props;
   },
   render: function() {
