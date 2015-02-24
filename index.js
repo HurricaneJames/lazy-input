@@ -25,4 +25,4 @@ var LazyInput = React.createClass({
 
 });
 
-exports = LazyInput;
+module.exports = LazyInput;
