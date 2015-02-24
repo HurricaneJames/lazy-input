@@ -1,7 +1,7 @@
 var React = require('react');
 
 var LazyInput = React.createClass({
-
+  displayName: "LazyInput",
   getInitialState: function() {
     return { value: this.props.value };
   },
