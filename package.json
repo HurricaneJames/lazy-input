@@ -27,6 +27,7 @@
   },
   "homepage": "https://github.com/HurricaneJames/lazy-input",
   "dependencies": {
+    "clone": "^1.0.0",
     "react": "^0.12.2"
   }
 }

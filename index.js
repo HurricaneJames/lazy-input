@@ -1,4 +1,5 @@
-var React = require('react');
+var React = require('react')
+  , clone = require('clone');
 
 var LazyInput = React.createClass({
   displayName: "LazyInput",
@@ -14,7 +15,7 @@ var LazyInput = React.createClass({
   },
   getProps: function() {
     // for the most part, we are just going to pass through whatever comes in
-    var props = Object.create(this.props);
+    var props = clone(this.props);
     props.value = this.state.value;
     if(props.onChange) { props.onChange = this.onChange; }
     return props;
