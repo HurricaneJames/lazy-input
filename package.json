@@ -1,6 +1,6 @@
 {
   "name": "lazy-input",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A lazy React.js input field that only updates when it is told to re-render (fixes issues with Flux backed field data)",
   "main": "index.js",
   "scripts": {
