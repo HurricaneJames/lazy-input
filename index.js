@@ -19,17 +19,22 @@ var LazyInput = React.createClass({
   },
   componentWillReceiveProps: function(nextProps) {
     this.setState({ requestedValue: nextProps.value });
-    this.doItLater();
+    this.updateIfNotLazy();
   },
-  doItLater: function() {
-    if(this.procrastinating) { clearTimeout(this.procrastinating); }
-    this.procrastinating = setTimeout(this.ohAlrightAlready, this.props.lazyLevel);
+  updateIfNotLazy: function() {
+    if(!this.procrastinating) { this.setState({ value: this.state.requestedValue }); }
+  },
+  procrastinate: function() {
+    this.procrastinating = true;
+    if(this.procrastinationTimer) { clearTimeout(this.procrastinationTimer); }
+    this.procrastinationTimer = setTimeout(this.ohAlrightAlready, this.props.lazyLevel);
   },
   ohAlrightAlready: function() {
-    this.procrastinating = undefined;
-    this.setState({ value: this.state.requestedValue });
+    this.procrastinating = false;
+    this.updateIfNotLazy();
   },
   onChange: function(event) {
+    this.procrastinate();
     this.setState({ value: event.target.value });
     this.props.onChange.apply(null, arguments);
   },
