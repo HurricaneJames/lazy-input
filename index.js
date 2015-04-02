@@ -12,13 +12,19 @@ var LazyInput = React.createClass({
     return {
       type: 'text',
       lazyLevel: 1000
-    }
+    };
   },
   getInitialState: function() {
     return { value: this.props.value };
   },
   componentWillReceiveProps: function(nextProps) {
     this.updateIfNotLazy(nextProps.value);
+  },
+  componentWillUnmount: function() {
+    if(this.procrastinationTimer) {
+      clearTimeout(this.procrastinationTimer);
+      this.procrastinating = false;
+    }
   },
   updateIfNotLazy: function(newValue) {
     if(!this.procrastinating) {
