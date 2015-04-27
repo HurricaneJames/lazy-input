@@ -2,9 +2,12 @@
   "name": "lazy-input",
   "version": "1.0.8",
   "description": "A lazy React.js input field that only updates when it is told to re-render (fixes issues with Flux backed field data)",
-  "main": "index.js",
+  "main": "dist/LazyInput.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "./scripts/build",
+    "test": "./scripts/test",
+    "test-cov": "./scripts/test-cov",
+    "prepublish": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -26,8 +29,12 @@
     "url": "https://github.com/HurricaneJames/lazy-input/issues"
   },
   "homepage": "https://github.com/HurricaneJames/lazy-input",
-  "dependencies": {
-    "clone": "^1.0.0",
+  "devDependencies": {
+    "babel": "^4.6.6",
+    "expect.js": "^0.3.1",
+    "istanbul": "~0.3.7",
+    "jsdom": "^3.1.0",
+    "mocha": "^2.0.1",
     "react": "^0.12.2"
   }
 }

@@ -1,0 +1,2 @@
+#!/bin/sh
+./node_modules/.bin/mocha --require ./babel.js --compilers jsx:babel/register --recursive ./src/__tests__

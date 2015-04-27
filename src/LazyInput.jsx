@@ -1,5 +1,4 @@
-var React = require('react')
-  , clone = require('clone');
+var React = require('react');
 
 var LazyInput = React.createClass({
   displayName: "LazyInput",
@@ -48,10 +47,9 @@ var LazyInput = React.createClass({
     this.props.onChange.apply(null, arguments);
   },
   getProps: function() {
-    // for the most part, we are just going to pass through whatever comes in
-    var props = clone(this.props);
+    var props = {};
+    for(var key in this.props) { if(key !== 'lazyLevel') { props[key] = this.props[key]; } }
     props.value = this.state.value;
-    delete props.lazyLevel;
     if(props.onChange) { props.onChange = this.onChange; }
     return props;
   },
