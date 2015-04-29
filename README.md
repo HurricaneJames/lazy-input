@@ -1,4 +1,7 @@
 # lazy-input
+
+[![npm package](https://img.shields.io/npm/v/lazy-input.svg?style=flat)](https://www.npmjs.org/package/lazy-input) [![Code Climate](https://codeclimate.com/github/HurricaneJames/lazy-input/badges/gpa.svg)](https://codeclimate.com/github/HurricaneJames/lazy-input) [![Test Coverage](https://codeclimate.com/github/HurricaneJames/lazy-input/badges/coverage.svg)](https://codeclimate.com/github/HurricaneJames/lazy-input)
+
 A lazy React.js input field that only updates when it is told to re-render (fixes issues with Flux backed field data)
 
 About
