@@ -27,7 +27,9 @@ var LazyInput = React.createClass({
   },
   updateIfNotLazy: function(newValue) {
     if(!this.procrastinating) {
-      this.setState({ value: newValue, requestedValue: undefined });
+      if(this.state.value !== newValue) {
+        this.setState({ value: newValue, requestedValue: undefined });
+      }
     }else {
       this.setState({ requestedValue: newValue });
     }
