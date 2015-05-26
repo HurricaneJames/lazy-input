@@ -56,7 +56,12 @@ var LazyInput = React.createClass({
     return props;
   },
   render: function() {
-    return React.createElement(this.props.type === "textarea" ? "textarea" : "input", this.getProps());
+    var type = this.props.type;
+    if(!type || type === "text") {
+      type = "input";
+    }
+
+    return React.createElement(type, this.getProps());
   }
 
 });

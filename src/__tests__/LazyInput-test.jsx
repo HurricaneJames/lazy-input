@@ -32,6 +32,16 @@ describe('LazyInput', function() {
     var input = TestUtils.renderIntoDocument(<LazyInput type="textarea" />);
     expect(TestUtils.findRenderedDOMComponentWithTag(input, 'textarea')).not.to.be(undefined);
   });
+  it('should render a custom type when a React class is given', function() {
+    var CustomType = React.createClass({
+      render: function() {
+        return <input className="custom" {...this.props} />
+      }
+    });
+
+    var input = TestUtils.renderIntoDocument(<LazyInput type={CustomType} />);
+    expect(TestUtils.findRenderedDOMComponentWithClass(input, 'custom')).not.to.be(undefined);
+  });
 
   describe("props", function() {
     // specificially import props
