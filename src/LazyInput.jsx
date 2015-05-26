@@ -2,10 +2,10 @@ var React = require('react');
 
 var LazyInput = React.createClass({
   displayName: "LazyInput",
-  propTypes: {                                  // ['text'] or [CustomInput] type of rendered input
-    type: React.PropTypes.oneOfType([
-      React.PropTypes.string,
-      React.PropTypes.func
+  propTypes: {
+    type: React.PropTypes.oneOfType([           // by defaut it will use a React.DOM.input (type='text')
+      React.PropTypes.string,                   // ['text'] type of input ('textarea' will create a textarea element, anything else will pass to input)
+      React.PropTypes.func                      // a React component class
     ]),
     lazyLevel: React.PropTypes.number           // [1000]   number of ms to wait before responding to changes in prop.value
     // note: passes through everything but lazyLevel
