@@ -26,6 +26,12 @@ LazyInput expands the `type` prop slightly to accept `textarea` in addition to t
       );
     }
 
+LazyInput can also accept any React Component as the type. For example, if you are using the [react-input-placeholder](https://github.com/enigma-io/react-input-placeholder) to get placeholder working in older browsers (ex. IE9), then you can pass through the input component directly. There is plenty of rope here to hang yourself though, so be careful.
+
+    var Input= PlaceholderShim.input;
+    // ...
+    <LazyInput type={Input} value="some value" onChange={this.onChange} />
+
 Installing
 ----------
 Installing via [npmjs](https://www.npmjs.com/package/lazy-input)
@@ -37,3 +43,9 @@ Using
     LazyInput = require('lazy-input');
     // ...
     <LazyInput type="text" value={this.state.myFluxValue} onChange={this.onChange} />
+
+
+Changelog
+---------
+
+v1.1 - LazyInput types can now include any React Component class. Thanks go to [Riku Rouvila](https://github.com/rikukissa).
