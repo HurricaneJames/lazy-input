@@ -32,6 +32,11 @@ describe('LazyInput', function() {
     var input = TestUtils.renderIntoDocument(<LazyInput type="textarea" />);
     expect(TestUtils.findRenderedDOMComponentWithTag(input, 'textarea')).not.to.be(undefined);
   });
+  it('should render an input for all other types', function() {
+    var input = TestUtils.renderIntoDocument(<LazyInput type="tel" />);
+    expect(TestUtils.findRenderedDOMComponentWithTag(input, 'input')).not.to.be(undefined);
+  });
+
   it('should render a custom type when a React class is given', function() {
     var CustomType = React.createClass({
       render: function() {

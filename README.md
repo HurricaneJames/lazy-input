@@ -49,3 +49,4 @@ Changelog
 ---------
 
 v1.1 - LazyInput types can now include any React Component class. Thanks go to [Riku Rouvila](https://github.com/rikukissa).
+  - v1.1.1 - fixed bug where html5 descriptive input types crashed (ex. type="tel"). Thanks go to [Eric Fennell](https://github.com/ericf89) for reporting the bug.
