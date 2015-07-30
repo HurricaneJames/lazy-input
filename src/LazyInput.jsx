@@ -54,6 +54,9 @@ var LazyInput = React.createClass({
   getProps: function() {
     var props = {};
     for(var key in this.props) { if(key !== 'lazyLevel') { props[key] = this.props[key]; } }
+    if(typeof props.type === 'function') {
+      delete props.type;
+    }
     props.value = this.state.value;
     if(props.onChange) { props.onChange = this.onChange; }
     return props;
