@@ -89,6 +89,30 @@ describe('LazyInput', function() {
       shallowRenderer.render(<LazyInput onChange={onChange} />);
       expect(shallowRenderer.getRenderOutput().props.onChange).not.to.be(onChange);
     });
+
+    it("clears old textarea value when value set to null", function(done) {
+      var setNull;
+      var Wrapper = React.createClass({
+          componentDidMount: function() {
+              setNull = function(callback) {
+                  this.setState({value: null}, callback);
+              }.bind(this);
+          },
+          getInitialState: function() {
+              return {value: 'string'};
+          },
+          render: function() {
+              return <LazyInput type="textarea" value={this.state.value} onChange={function(){}} />;
+          }
+      });
+      var wrapper = TestUtils.renderIntoDocument(<Wrapper />);
+      expect(TestUtils.findRenderedDOMComponentWithTag(wrapper, 'textarea').getDOMNode().value).to.be('string');
+      // null the lazy input value
+      setNull(function() {
+          expect(TestUtils.findRenderedDOMComponentWithTag(wrapper, 'textarea').getDOMNode().value).to.be('');
+          done();
+      })
+    });
   });
 
   describe("procrastination", function() {
