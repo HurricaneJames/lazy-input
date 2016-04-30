@@ -3,15 +3,15 @@ var testdom = require('./testdom')();
 var sinon = require('sinon');
 var expect = require('expect.js');
 
+var React = require('react');
+var ReactDOM = require('react-dom');
+var TestUtils = require('react-addons-test-utils');
+
 
 describe('LazyInput', function() {
-  var React
-    , TestUtils
-    , LazyInput
+  var LazyInput
     , sinonSandbox;
   beforeEach(function() {
-    React = require('react/addons');
-    TestUtils = React.addons.TestUtils;
     LazyInput = require('../LazyInput');
     sinonSandbox = sinon.sandbox.create();
   });
@@ -52,18 +52,18 @@ describe('LazyInput', function() {
     // specificially import props
     it('should put the value into the input element when specified', function() {
       var input = TestUtils.renderIntoDocument(<LazyInput value="xyzzy" readOnly />);
-      expect(TestUtils.findRenderedDOMComponentWithTag(input, 'input').getDOMNode().value).to.be('xyzzy');
+      expect(TestUtils.findRenderedDOMComponentWithTag(input, 'input').value).to.be('xyzzy');
     });
     it('should put the value into the textarea when specified', function() {
       var input = TestUtils.renderIntoDocument(<LazyInput type="textarea" value="xyzzy" readOnly />);
       var ie = TestUtils.findRenderedDOMComponentWithTag(input, 'textarea');
-      expect(ie.getDOMNode().value).to.be('xyzzy');
+      expect(ie.value).to.be('xyzzy');
     });
     it('should specify the form name on the input element when given', function() {
       var input = TestUtils.renderIntoDocument(<LazyInput name="customForm" />);
       var textarea = TestUtils.renderIntoDocument(<LazyInput name="customForm" type="textarea" />);
-      expect(TestUtils.findRenderedDOMComponentWithTag(input, 'input').getDOMNode().name).to.be('customForm');
-      expect(TestUtils.findRenderedDOMComponentWithTag(textarea, 'textarea').getDOMNode().name).to.be('customForm');
+      expect(TestUtils.findRenderedDOMComponentWithTag(input, 'input').name).to.be('customForm');
+      expect(TestUtils.findRenderedDOMComponentWithTag(textarea, 'textarea').name).to.be('customForm');
     });
 
     it('should pass through props', function() {
@@ -111,16 +111,24 @@ describe('LazyInput', function() {
     });
     it("should immediately show changes that come via onChange", function() {
       TestUtils.Simulate.change(inputElement, { target: { value: 'xx' } });
-      expect(inputElement.getDOMNode().value).to.be('xx');
+      expect(inputElement.value).to.be('xx');
     });
     it("should update the element immediately if not procrastinating", function() {
-      input.setProps({value: "xyzzyy", onChange: mockOnChange});
-      expect(inputElement.getDOMNode().value).to.be('xyzzyy');
+      // input.setProps({value: "xyzzyy", onChange: mockOnChange});
+      var inputContainer = ReactDOM.findDOMNode(input).parentNode;
+      inputElement = inputContainer.querySelector('input');
+      expect(inputElement.value).to.be('xyzzy');
+      ReactDOM.render(<LazyInput value="xyzzyy" onChange={mockOnChange} />, inputContainer);
+      inputElement = inputContainer.querySelector('input');
+      expect(inputElement.value).to.be('xyzzyy');
     });
     it("should not update the element if it is procrastinating (ie. right after a change)", function() {
       TestUtils.Simulate.change(inputElement, { target: { value: 'xx' } });
-      input.setProps({ value: "xyzzyy", onChange: mockOnChange });
-      expect(inputElement.getDOMNode().value).to.be('xx');
+      // input.setProps({ value: "xyzzyy", onChange: mockOnChange });
+      var inputContainer = ReactDOM.findDOMNode(input).parentNode;
+      ReactDOM.render(<LazyInput value="xyzzyy" onChange={mockOnChange} />, inputContainer);
+      inputElement = inputContainer.querySelector('input');
+      expect(inputElement.value).to.be('xx');
     });
 
     describe('timer', function() {
@@ -130,26 +138,35 @@ describe('LazyInput', function() {
 
       it("should update the element after the procrastination timer has run (default 1000ms)", function() {
         TestUtils.Simulate.change(inputElement, { target: { value: 'xx' } });
-        input.setProps({ value: "xyzzyy", onChange: mockOnChange });
-        expect(inputElement.getDOMNode().value).to.be('xx');
+        // input.setProps({ value: "xyzzyy", onChange: mockOnChange });
+        var inputContainer = ReactDOM.findDOMNode(input).parentNode;
+        ReactDOM.render(<LazyInput value="xyzzyy" onChange={mockOnChange} />, inputContainer);
+        inputElement = inputContainer.querySelector('input');
+        expect(inputElement.value).to.be('xx');
         clock.tick(1500);
-        expect(inputElement.getDOMNode().value).to.be('xyzzyy');
+        expect(inputElement.value).to.be('xyzzyy');
       });
       it('should set the procrastination timer according to the lazyLevel prop', function() {
         input = TestUtils.renderIntoDocument(<LazyInput value="a" onChange={mockOnChange} lazyLevel={2500} />);
         inputElement = TestUtils.findRenderedDOMComponentWithTag(input, 'input');
         TestUtils.Simulate.change(inputElement, { target: { value: 'xx' } });
-        input.setProps({ value: "xyzzyy", onChange: mockOnChange });
-        expect(inputElement.getDOMNode().value).to.be('xx');
+        // input.setProps({ value: "xyzzyy", onChange: mockOnChange });
+        var inputContainer = ReactDOM.findDOMNode(input).parentNode;
+        ReactDOM.render(<LazyInput value="xyzzyy" onChange={mockOnChange} />, inputContainer);
+        inputElement = inputContainer.querySelector('input');
+        expect(inputElement.value).to.be('xx');
         clock.tick(1500);
-        expect(inputElement.getDOMNode().value).to.be('xx');
+        expect(inputElement.value).to.be('xx');
         clock.tick(1000);
-        expect(inputElement.getDOMNode().value).to.be('xyzzyy');
+        expect(inputElement.value).to.be('xyzzyy');
       });
       it("should clean up the procrastination timer when the component is unmounted", function() {
         TestUtils.Simulate.change(inputElement, { target: { value: 'xx' } });
-        input.setProps({ value: "xyzzyy", onChange: mockOnChange });
-        React.unmountComponentAtNode(input.getDOMNode().parentNode);
+        // input.setProps({ value: "xyzzyy", onChange: mockOnChange });
+        var inputContainer = ReactDOM.findDOMNode(input).parentNode;
+        ReactDOM.render(<LazyInput value="xyzzyy" onChange={mockOnChange} />, inputContainer);
+        inputElement = inputContainer.querySelector('input');
+        ReactDOM.unmountComponentAtNode(inputContainer);
         expect(clock.timers).to.eql({});
       });
     });

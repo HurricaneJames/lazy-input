@@ -44,9 +44,20 @@ Using
     // ...
     <LazyInput type="text" value={this.state.myFluxValue} onChange={this.onChange} />
 
+Examples
+--------
+
+    git clone https://github.com/HurricaneJames/lazy-input.git
+    cd lazy-input
+    npm install
+    npm run examples
+    open localhost:8090
 
 Changelog
 ---------
+
+v2.0 - Updated to support React 15.x, added examples
+  - v2.0.0 in theory there is no reason this should not work with React 0.13+, just like before, the only thing that changed was the tests and the addition of examples.
 
 v1.1 - LazyInput types can now include any React Component class. Thanks go to [Riku Rouvila](https://github.com/rikukissa).
   - v1.1.1 - fixed bug where html5 descriptive input types crashed (ex. type="tel"). Thanks go to [Eric Fennell](https://github.com/ericf89) for reporting the bug.
