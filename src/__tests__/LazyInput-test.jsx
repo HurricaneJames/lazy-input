@@ -83,6 +83,14 @@ describe('LazyInput', function() {
       expect(shallowRenderer.getRenderOutput().props.lazyLevel).to.be(undefined);
     });
 
+    it('should filter out the type prop when React class is given', function() {
+      var CustomType = function () {};
+      var shallowRenderer = TestUtils.createRenderer();
+      shallowRenderer.render(<LazyInput type={CustomType} />);
+      var input = shallowRenderer.getRenderOutput();
+      expect(input.props.type).to.be(undefined);
+    });
+
     it('should redirect onChange to the custom implementation', function() {
       var onChange = function() {};
       var shallowRenderer = TestUtils.createRenderer();
