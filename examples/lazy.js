@@ -2,20 +2,22 @@ var React = require('react')
   , ReactDOM = require('react-dom')
   , LazyInput = require('../src/LazyInput');
 
-var LazyInputExample = React.createClass({
-  displayName: 'LazyInputExample',
-  getInitialState: function() {
-    return {
-      value: '',
+class LazyInputExample extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      return {
+        value: '',
+      };
     };
-  },
-  onChange: function(e) {
+  }
+  onChange(e) {
     this.setState({ value: e.target.value });
-  },
-  onTextAreaChange: function(e) {
+  }
+  onTextAreaChange(e) {
     this.setState({ value: e.target.value });
-  },
-  render: function() {
+  }
+  render() {
     return (
       <div>
         <h2>Component</h2>
