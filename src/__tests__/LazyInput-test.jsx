@@ -38,11 +38,9 @@ describe('LazyInput', function() {
   });
 
   it('should render a custom type when a React class is given', function() {
-    var CustomType = React.createClass({
-      render: function() {
-        return <input className="custom" {...this.props} />
-      }
-    });
+    var CustomType = function(props) {
+      return <input className="custom" {...props} />
+    };
 
     var input = TestUtils.renderIntoDocument(<LazyInput type={CustomType} />);
     expect(TestUtils.findRenderedDOMComponentWithClass(input, 'custom')).not.to.be(undefined);
